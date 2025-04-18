@@ -1,7 +1,5 @@
 package retailinventory;
 
-import java.sql.Timestamp;
-
 /**
  * User model class for authentication
  */
@@ -13,8 +11,6 @@ public class User {
     private String email;
     private String gender; // Added gender field
     private String address; // Added address field
-    private Timestamp createdAt;
-    private Timestamp lastLogin;
     
     // Default constructor
     public User() {
@@ -32,7 +28,7 @@ public class User {
     
     // Full constructor
     public User(int userId, String username, String password, String fullName, 
-            String email, String gender, String address, Timestamp createdAt, Timestamp lastLogin) {
+            String email, String gender, String address) {
         this.userId = userId;
         this.username = username;
         this.password = password;
@@ -40,8 +36,6 @@ public class User {
         this.email = email;
         this.gender = gender;
         this.address = address;
-        this.createdAt = createdAt;
-        this.lastLogin = lastLogin;
     }
 
     // Getters and Setters
@@ -99,22 +93,6 @@ public class User {
     
     public void setAddress(String address) {
         this.address = address;
-    }
-
-    public Timestamp getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(Timestamp createdAt) {
-        this.createdAt = createdAt;
-    }
-
-    public Timestamp getLastLogin() {
-        return lastLogin;
-    }
-
-    public void setLastLogin(Timestamp lastLogin) {
-        this.lastLogin = lastLogin;
     }
     
     @Override

@@ -5,8 +5,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.sql.Timestamp;
-import java.util.Date;
 
 /**
  * Data Access Object for user authentication operations
@@ -32,10 +30,6 @@ public class UserDAO {
             try (ResultSet rs = pstmt.executeQuery()) {
                 if (rs.next()) {
                     User user = mapResultSetToUser(rs);
-                    
-                    // Update last login timestamp
-                    updateLastLogin(user.getUserId());
-                    
                     return user;
                 }
             }
@@ -84,24 +78,6 @@ public class UserDAO {
     }
     
     /**
-     * Updates user's last login timestamp
-     * @param userId User ID to update
-     * @throws SQLException if database error occurs
-     */
-    private void updateLastLogin(int userId) throws SQLException {
-        String query = "UPDATE users SET last_login = ? WHERE user_id = ?";
-        
-        try (Connection conn = DatabaseConnection.getConnection();
-             PreparedStatement pstmt = conn.prepareStatement(query)) {
-            
-            pstmt.setTimestamp(1, new Timestamp(new Date().getTime()));
-            pstmt.setInt(2, userId);
-            
-            pstmt.executeUpdate();
-        }
-    }
-    
-    /**
      * Checks if a username already exists in the database
      * @param username Username to check
      * @return true if username exists, false otherwise
@@ -140,8 +116,6 @@ public class UserDAO {
         user.setEmail(rs.getString("email"));
         user.setGender(rs.getString("gender"));
         user.setAddress(rs.getString("address"));
-        user.setCreatedAt(rs.getTimestamp("created_at"));
-        user.setLastLogin(rs.getTimestamp("last_login"));
         return user;
     }
 }
